@@ -53,9 +53,9 @@ gulp.task('default', ['html'], function () {
 
 ## 分析
 
-其实我正常运行 `gulp html` 和watch的时候去触发同一个方法  `htmlCompilre` 的一个关键就是这个方法能够接收src地址的传参
-但是为什么同一个方法，正常运行    `gulp html` 和 'gulp watch' 的结果却不通呢。
-唯一的区别就是他们的src传参不通了。前者是写死的 `app/html/**/*.html` , 而后着，是从 `event.path` 拿地址的，
+其实我正常运行 `gulp html` 和 watch 的时候去触发同一个方法  `htmlCompilre` 的一个关键就是这个方法能够接收 src 地址的传参
+但是为什么同一个方法，正常运行  `gulp html` 和 `gulp watch` 的结果却不通呢。
+唯一的区别就是他们的 src 传参不通了。前者是写死的 `app/html/**/*.html` , 而后着，是从 `event.path` 拿地址的，
 
 `event.path` 拿到手是酱紫 `F:\gitPro\activities\app\html\shandai\index.html` 
 
