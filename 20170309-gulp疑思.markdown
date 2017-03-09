@@ -1,6 +1,10 @@
 # gulp
 
+## 需求
+
 我想要把 gulp 构建的代码重构一下，先想到的就是可以把同一种文件类型比如 html 在正常构建和 watch 的时候获取构建的输入目录和构建到输出目录的代码能复用就尽量复用一下
+
+## 问题
 
 比如针对 html 文件，一拉代码，本地需要执行 `gulp html` ，把 html 编译到 dist 目录去，然后 ` watch` html文件，一有改动，自动编译该文件。我看之前的项目是一有改动，整个 html 目录直接重新编译
 先说一下目录结构，项目下主要是来个俩个目录， app 和 dist  和一个文件 gulpfile.js 文件。
@@ -44,10 +48,12 @@ gulp.task('default', ['html'], function () {
 执行 `gulp html` 的时候就会调用这个方法 `htmlCompire` ,生成成功, 咦， 看起来还不错哦，
  dist 目录多了一个 shandai/index.html 文件。
 
-修改 html 文件，触发了htmlCompire()，
+修改 html 文件，触发了 htmlCompire() ，
 不对！ 怎么这次是直接在html目录下生成一个html文件呢。`shandai` 目录丢了？
-分下下，
-其实我正常运行 `gulp html` 和watch的时候去触发同一个方法  `htmlCompilre` 的一个关键就是这个方法能够接收src地址的传参
+
+## 分析
+
+其实我正常运行 `gulp html` 和watch的时候去触发同一个方法  `htmlCompilre` 的一个关键就是这个方法能够接收src地址的传参
 但是为什么同一个方法，正常运行    `gulp html` 和 'gulp watch' 的结果却不通呢。
 唯一的区别就是他们的src传参不通了。前者是写死的 `app/html/**/*.html` , 而后着，是从 `event.path` 拿地址的，
 
@@ -55,3 +61,5 @@ gulp.task('default', ['html'], function () {
 
 这是一个绝对路径。
 我想，这俩者的不同就是 watch 构建后 `shandai` 目录丢失的原因了。
+
+## 解决
